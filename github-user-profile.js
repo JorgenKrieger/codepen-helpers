@@ -7,7 +7,11 @@ export default class GitHubProfileLink {
     this.baseURL = "https://github.com/";
     this.avatarURL = `https://github.com/${this.username}.png`;
 
-    this.inject();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => this.inject());
+    } else {
+      this.inject();
+    }
   }
 
   createLinkElement() {
@@ -18,12 +22,12 @@ export default class GitHubProfileLink {
 
     Object.assign(link.style, {
       position: "fixed",
-      bottom: "1rem", // bottom-4
-      left: "1rem", // start-4 (assumes LTR)
-      width: "3rem", // size-12 (48px)
+      bottom: "1rem",
+      left: "1rem",
+      width: "3rem",
       height: "3rem",
-      boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)", // shadow-lg
-      borderRadius: "9999px", // rounded-full
+      boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
+      borderRadius: "9999px",
       overflow: "hidden",
       display: "inline-block",
       cursor: "pointer",
@@ -42,7 +46,6 @@ export default class GitHubProfileLink {
       display: "block",
     });
 
-    // Optional hover scale effect
     link.addEventListener("mouseenter", () => {
       img.style.transform = "scale(1.10)";
     });
